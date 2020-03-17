@@ -33,6 +33,10 @@ An audit can return a number of different [detail types](https://github.com/Goog
 | `'link'`                  | -                     | arbitrary link / url combination       |
 | `'text'\|'ms'\|'numeric'` | -                     |                                        |
 
+
+<!--- https://docs.google.com/document/d/1KS6PGPYDfE_TWrRdw55Rd67P-g_MU4KdMetT3cTPHjI/edit#heading=h.32w9jjm4c70w -->
+![Detail type examples](../assets/detail-type-examples.png "Detail type examples")
+
 ## Process for creating a new audit
 
 1. Scan the criteria we’ve laid out above. If you think the principles match with your proposed new audit, then proceed! 
