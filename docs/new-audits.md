@@ -9,16 +9,16 @@ Lighthouse audits that surface in the report should be:
 - Not have a significant impact on our runtime performance or bundle size. 
 - Something that is new, and not something that is already measured by existing audits. 
 - Measurable (especially for performance audits) or have clear pass/fail states.
-- Actionable - when failing, specific advice should be given. If the failure can be tied to a specific resource (a DOM element, script, line of code), use the [appropriate detail type](https://github.com/GoogleChrome/lighthouse/blob/master/types/audit-details.d.ts). If multiple failures can occur for a page, return a table.
+- Actionable - when failing, specific advice should be given. If the failure can be tied to a specific resource (a DOM element, script, line of code), use the appropriate detail type (see below). If multiple failures can occur for a page, return a table.
 - Not use 3rd party APIs for completing the audit check. 
 
-## Actionable
+## Actionability
 
 1. When failing, specific advice should be given. If an audit can fail in multiple ways, each way should have a specific error message.
 1. If the failure can be applied to a specific resource, use the appropriate detail type (see subsection).
 1. If multiple failures can occur on a single page, return each (use a table - don't just return a binary score).
 
-## Detail Types
+### Detail Types
 
 An audit can return a number of different [detail types](https://github.com/GoogleChrome/lighthouse/blob/master/types/audit-details.d.ts).
 
