@@ -22,20 +22,20 @@ Lighthouse audits that surface in the report should be:
 
 An audit can return a number of different [detail types](https://github.com/GoogleChrome/lighthouse/blob/master/types/audit-details.d.ts).
 
-| detail type             | resource              | notes                                  |
-|-------------------------|-----------------------|----------------------------------------|
-| `'node'`                | DOM element           | set path to a devtoolsNodePath         |
-| `'source-location'`     | Code Network Resource | use to point to specific line, column  |
-| `'code'`                | N/A; freeform         | render in monospace font `like this`   |
-| `'url'`                 | Network Resource      | we will make it a pretty link          |
-| `'thumbnail'`           | Image Resource        | same as above, but we show a thumbnail |
-| `'link'`                | -                     | arbitrary link / url combination       |
-| `'text'|'ms'|'numeric'` | -                     |                                        |
-
+| detail type               | resource              | notes                                  |
+|---------------------------|-----------------------|----------------------------------------|
+| `'node'`                  | DOM element           | set path to a devtoolsNodePath         |
+| `'source-location'`       | Code Network Resource | use to point to specific line, column  |
+| `'code'`                  | N/A; freeform         | render in monospace font `like this`   |
+| `'url'`                   | Network Resource      | we will make it a pretty link          |
+| `'thumbnail'`             | Image Resource        | same as above, but we show a thumbnail |
+| `'link'`                  | -                     | arbitrary link / url combination       |
+| `'text'\|'ms'\|'numeric'` | -                     |                                        |
 
 ## Process for creating a new audit
+
 1. Scan the criteria we’ve laid out above. If you think the principles match with your proposed new audit, then proceed! 
-2. Next step is to create an issue on GitHub with answers to the following questions: 
+1. Next step is to create an issue on GitHub with answers to the following questions: 
 ```
 #### Provide a basic description of the audit
 #### How would the audit appear in the report? 
@@ -52,6 +52,6 @@ An audit can return a number of different [detail types](https://github.com/Goog
 <!-- Who will create the audits, write the documentation, and maintain both? -->
 #### Any other links or documentation that we should check out?
 ```
-3. Once the proposal is submitted, then Lighthouse team will take a look and followup. We will discuss possible implementation approaches, and associated runtime overhead.
+1. Once the proposal is submitted, then Lighthouse team will take a look and followup. We will discuss possible implementation approaches, and associated runtime overhead.
 With this new information we can better understand the impl cost and effort required and prioritize the audit into our sprint/roadmap. 
-4. Depending on the prioritization, we'll then work with you to figure out the necessary engineering/UX/product details. 
+1. Depending on the prioritization, we'll then work with you to figure out the necessary engineering/UX/product details. 
