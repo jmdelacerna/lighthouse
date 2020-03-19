@@ -64,12 +64,24 @@ Below is a table containing several common sources of metric variability, the ty
 
 ## Strategies for Dealing With Variance
 
+### Run on Adequate Hardware
+
+Loading modern webpages on a modern browser is not an easy task. Using appropriately powerful hardware can make a world of difference when it comes to variability.
+
+- Minimum 2 dedicated cores
+- Minimum 2GB RAM (4-8GB recommended)
+- Avoid non-standard Chromium flags (`--single-process` is not supported, `--no-sandbox` and `--headless` should be OK, though educate yourself about [sandbox tradeoffs](https://github.com/GoogleChrome/lighthouse-ci/tree/fbb540507c031100ee13bf7eb1a4b61c79c5e1e6/docs/recipes/docker-client#--no-sandbox-issues-explained))
+- Avoid function-as-a-service infrastructure (Lambda, GCF, etc)
+- Avoid "burstable" or "shared-core" instance types (AWS `t` instances, GCP shared-core N1 and E2 instances, etc)
+
+`m5.large` on AWS, `n2-standard-2` on GCP, and `D2` on Azure or better all should be sufficient to run a single Lighthouse run at a time (~$0.10/hour for these instance types, ~30s/test, ~$0.0008/Lighthouse report). While some environments that don't meet the requirements above will still be able to run Lighthouse and the non-performance results will still be usable, we'd advise Remember, running on inconsistent hardware will lead to inconsistent results!
+
 ### Isolate External Factors
 
 - Isolate your page from third-party influence as much as possible. It’s never fun to be blamed for someone else's variable failures.
 - Isolate your own code’s nondeterminism during testing. If you’ve got an animation that randomly shows up, your performance numbers might be random too!
 - Isolate your test server from as much network volatility as possible. Use localhost or a machine on the same exact network whenever stability is a concern.
-- Isolate your client environment from external influences like anti-virus software and browser extensions. Use a dedicated device for testing when possible.
+- Isolate your client environment from external influences like anti-virus software and browser extensions. **DO NOT RUN MULTIPLE LIGHTHOUSE RUNS AT THE SAME TIME**. Use a dedicated device for testing when possible.
 
 If your machine has really limited resources or creating a clean environment has been difficult, use a hosted lab environment like PageSpeed Insights or WebPageTest to run your tests for you. In continuous integration situations, use dedicated servers when possible. Free CI environments and “burstable” instances are typically quite volatile.
 
@@ -77,7 +89,7 @@ If your machine has really limited resources or creating a clean environment has
 
 When creating your thresholds for failure, either mental or programmatic, use aggregate values like the median, 90th percentile, or even min instead of single tests.
 
-The median Lighthouse score of 5 runs is twice as stable as 1 run, and tools like [pwmetrics](https://github.com/paulirish/pwmetrics) can run Lighthouse for you automatically. Using the minimum value is also a big improvement over not testing at all and is incredibly simple to implement, just run Lighthouse up to 5 times until it passes!
+The median Lighthouse score of 5 runs is twice as stable as 1 run, and tools like [pwmetrics](https://github.com/paulirish/pwmetrics) or [lighthouse-ci](https://github.com/GoogleChrome/lighthouse-ci/) can run Lighthouse multiple times for you automatically. Using the minimum value is also a big improvement over not testing at all and is incredibly simple to implement, just run Lighthouse up to 5 times until it passes!
 
 ## Related Documentation
 
