@@ -7,9 +7,11 @@
 
 const fs = require('fs');
 
-const makeDevtoolsLog = require('lighthouse/lighthouse-core/test/network-records-to-devtools-log.js');
+const makeDevtoolsLog =
+  require('lighthouse/lighthouse-core/test/network-records-to-devtools-log.js');
 const ModuleDuplication = require('lighthouse/lighthouse-core/computed/module-duplication.js');
-const DuplicatedJavascript = require('lighthouse/lighthouse-core/audits/byte-efficiency/duplicated-javascript.js');
+const DuplicatedJavascript =
+  require('lighthouse/lighthouse-core/audits/byte-efficiency/duplicated-javascript.js');
 const LegacyJavascript = require('lighthouse/lighthouse-core/audits/legacy-javascript.js');
 
 /**
@@ -75,6 +77,7 @@ async function run() {
   const duplicatedJavascriptResult =
     await DuplicatedJavascript.audit_(artifacts, networkRecords, context);
 
+  // eslint-disable-next-line no-console
   console.log({duplication, legacyJavascriptResult, duplicatedJavascriptResult});
 }
 
