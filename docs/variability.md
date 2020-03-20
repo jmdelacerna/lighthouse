@@ -74,14 +74,16 @@ Loading modern webpages on a modern browser is not an easy task. Using appropria
 - Avoid function-as-a-service infrastructure (Lambda, GCF, etc)
 - Avoid "burstable" or "shared-core" instance types (AWS `t` instances, GCP shared-core N1 and E2 instances, etc)
 
-`m5.large` on AWS, `n2-standard-2` on GCP, and `D2` on Azure or better all should be sufficient to run a single Lighthouse run at a time (~$0.10/hour for these instance types, ~30s/test, ~$0.0008/Lighthouse report). While some environments that don't meet the requirements above will still be able to run Lighthouse and the non-performance results will still be usable, we'd advise Remember, running on inconsistent hardware will lead to inconsistent results!
+`m5.large` on AWS, `n2-standard-2` on GCP, and `D2` on Azure or better all should be sufficient to run a single Lighthouse run at a time (~$0.10/hour for these instance types, ~30s/test, ~$0.0008/Lighthouse report). While some environments that don't meet the requirements above will still be able to run Lighthouse and the non-performance results will still be usable, we'd advise against it and won't be able to support those environments should any bugs arise. Remember, running on inconsistent hardware will lead to inconsistent results!
+
+**DO NOT** collect multiple Lighthouse reports at the same time on the same machine. The lighthouse node module is built as a singleton and concurrent runs can interfere with the results. When it comes to Lighthouse runs, scaling horizontally is better than scaling vertically (i.e. run with 4 `n2-standard-2` instead of 1 `n2-standard-8`).
 
 ### Isolate External Factors
 
 - Isolate your page from third-party influence as much as possible. It’s never fun to be blamed for someone else's variable failures.
 - Isolate your own code’s nondeterminism during testing. If you’ve got an animation that randomly shows up, your performance numbers might be random too!
 - Isolate your test server from as much network volatility as possible. Use localhost or a machine on the same exact network whenever stability is a concern.
-- Isolate your client environment from external influences like anti-virus software and browser extensions. **DO NOT RUN MULTIPLE LIGHTHOUSE RUNS AT THE SAME TIME**. Use a dedicated device for testing when possible.
+- Isolate your client environment from external influences like anti-virus software and browser extensions. Use a dedicated device for testing when possible.
 
 If your machine has really limited resources or creating a clean environment has been difficult, use a hosted lab environment like PageSpeed Insights or WebPageTest to run your tests for you. In continuous integration situations, use dedicated servers when possible. Free CI environments and “burstable” instances are typically quite volatile.
 
