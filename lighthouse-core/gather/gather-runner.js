@@ -267,8 +267,29 @@ class GatherRunner {
     // neccessary at the beginning of the next pass.
     await passContext.driver.blockUrlPatterns(blockedUrls);
     await passContext.driver.setExtraHTTPHeaders(passContext.settings.extraHeaders);
+    await GatherRunner.setupCookies(passContext);
 
     log.timeEnd(status);
+  }
+
+  /**
+   * Initialize cookies settings for pass
+   * and manual request headers.
+   * @param {LH.Gatherer.PassContext} passContext
+   * @return {Promise<void>}
+   */
+  static async setupCookies(passContext) {
+    const extraCookies = passContext.settings.extraCookies;
+    if (!extraCookies) {
+      return;
+    }
+    extraCookies.forEach(cookie => {
+      if (!cookie.url || !cookie.domain) {
+        // Default cookie URL to to current URL, if neither domain nor url is specified
+        cookie.url = passContext.url;
+      }
+    });
+    await passContext.driver.setCookies(extraCookies);
   }
 
   /**

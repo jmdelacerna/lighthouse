@@ -53,11 +53,17 @@ function getFlags(manualArgv) {
           'lighthouse <url> --quiet --chrome-flags="--headless"',
           'Launch Headless Chrome, turn off logging')
       .example(
-          'lighthouse <url> --extra-headers "{\\"Cookie\\":\\"monster=blue\\", \\"x-men\\":\\"wolverine\\"}"',
-          'Stringify\'d JSON HTTP Header key/value pairs to send in requests')
+        'lighthouse <url> --extra-headers "{\\"x-men\\":\\"wolverine\\"}"',
+        'Stringify\'d JSON HTTP Header key/value pairs to send in requests')
       .example(
           'lighthouse <url> --extra-headers=./path/to/file.json',
           'Path to JSON file of HTTP Header key/value pairs to send in requests')
+      .example(
+          'lighthouse <url> --extra-cookies "[{\\"name\\":\\"session_id\\",\\"value\\":\\"x-men\\" }]"',
+          'Stringify\'d JSON array of HTTP Cookies to send in requests')
+      .example(
+           'lighthouse <url> --extra-cookies=./path/to/file.json',
+           'Path to JSON file of HTTP Cookies to send in requests')
       .example(
           'lighthouse <url> --only-categories=performance,pwa',
           'Only run the specified categories. Available categories: accessibility, best-practices, performance, pwa, seo')
@@ -125,6 +131,7 @@ function getFlags(manualArgv) {
         'max-wait-for-load':
             'The timeout (in milliseconds) to wait before the page is considered done loading and the run should continue. WARNING: Very high values can lead to large traces and instability',
         'extra-headers': 'Set extra HTTP Headers to pass with request',
+        'extra-cookies': 'Set extra HTTP Cookies to pass with request',
         'precomputed-lantern-data-path': 'Path to the file where lantern simulation data should be read from, overwriting the lantern observed estimates for RTT and server latency.',
         'lantern-data-output-path': 'Path to the file where lantern simulation data should be written to, can be used in a future run with the `precomputed-lantern-data-path` flag.',
         'only-audits': 'Only run the specified audits',
@@ -165,6 +172,7 @@ function getFlags(manualArgv) {
       .array('output')
       .array('plugins')
       .string('extraHeaders')
+      .string('extraCookies')
       .string('channel')
       .string('precomputedLanternDataPath')
       .string('lanternDataOutputPath')

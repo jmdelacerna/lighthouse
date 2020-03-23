@@ -127,6 +127,7 @@ Options:
   --throttling.uploadThroughputKbps    Controls emulated network upload throughput
   --throttling.cpuSlowdownMultiplier   Controls simulated + emulated CPU throttling
   --extra-headers               Set extra HTTP Headers to pass with request                                                                 [string]
+  --extra-cookies               Set extra HTTP Cookies to pass with request                                                                 [string]
 
 Examples:
   lighthouse <url> --view                                                   Opens the HTML report in a browser after the run completes
@@ -139,6 +140,8 @@ Examples:
   lighthouse <url> --quiet --chrome-flags="--headless"                      Launch Headless Chrome, turn off logging
   lighthouse <url> --extra-headers "{\"Cookie\":\"monster=blue\"}"          Stringify\'d JSON HTTP Header key/value pairs to send in requests
   lighthouse <url> --extra-headers=./path/to/file.json                      Path to JSON file of HTTP Header key/value pairs to send in requests
+    lighthouse <url> --extra-cookies "[{\"name\":\"session_id\",\"value\":\"x-men\" }]"  Stringify'd JSON array of HTTP Cookies to send in requests
+  lighthouse <url> --extra-cookies=./path/to/file.json                                 Path to JSON file of HTTP Cookies to send in requests
   lighthouse <url> --only-categories=performance,pwa                        Only run the specified categories. Available categories: accessibility,
                                                                             best-practices, performance, pwa, seo.
 
@@ -272,7 +275,7 @@ yarn build-all
 ```
 
 #### installing protobuf
-If changing audit output, you'll need to have v3.7.1 of the protocol-buffer/protobuf compiler installed. (v3.7.1 is known to be compatible, and 3.11.x is known to be **not** compatible.). 
+If changing audit output, you'll need to have v3.7.1 of the protocol-buffer/protobuf compiler installed. (v3.7.1 is known to be compatible, and 3.11.x is known to be **not** compatible.).
 
 Homebrew should be able to install it correctly: `brew install protobuf@3.7.1`
 
